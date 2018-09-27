@@ -26,8 +26,27 @@ namespace ProjetoModulo8BD
 
             try
             {
+                //foi criado a cum comando 
                 conexao.Open();
-                MessageBox.Show("Conexão criada com sucesso!");
+                MySqlCommand comando = new MySqlCommand();
+
+
+                //fiz receber uma referencia do conexao
+                comando = conexao.CreateCommand();
+
+                //depois foi criado um comando textual para fazer a consulta
+                comando.CommandText = "select nome from usuarios where id = 4;";
+                // criado uma leitura recebendo o comando reader que executa o texto retornando o resultado
+                MySqlDataReader reader = comando.ExecuteReader();
+
+                // ele ira percorer o reader em cada coluna/linhas da tabela e mostrar o resultado 
+                while(reader.Read())
+                {
+                    if(reader["nome"] != null)
+                    {
+                        MessageBox.Show(reader["nome"].ToString());
+                    }
+                }
             }
             catch(MySqlException msqle)
             {
